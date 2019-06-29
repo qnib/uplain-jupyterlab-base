@@ -5,7 +5,7 @@
 set -e
 
 # Exec the specified command or fall back on bash
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
     cmd=bash
 else
     cmd=$*
@@ -39,7 +39,7 @@ run-hooks () {
 run-hooks /usr/local/bin/start-notebook.d
 
 # Handle special flags if we're root
-if [ $(id -u) == 0 ] ; then
+if [][ $(id -u) == 0 ]] ; then
 
     # Only attempt to change the jovyan username if it exists
     if id jovyan &> /dev/null ; then
