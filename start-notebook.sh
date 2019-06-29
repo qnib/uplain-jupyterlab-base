@@ -9,7 +9,6 @@ set -ex
 echo ">> PWD: $(pwd)"
 if [[ "X${JUPYTER_API_TOKEN}" != X ]]; then
   # launched by JupyterHub, use single-user entrypoint
-  #exec /usr/local/bin/start-singleuser.sh $*
   jupyter lab --debug --allow-root \
           --config=/etc/jupyter/jupyter_notebook_config.py \
           --NotebookApp.base_url=${JUPYTER_BASE_URL} \
