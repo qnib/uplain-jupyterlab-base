@@ -62,6 +62,9 @@ RUN conda install --quiet --yes 'tini=0.18.0' \
 # Correct permissions
 # Do all this in a single RUN command to avoid duplicating all of the
 # files across image layers when the permissions change
+RUN mkdir -p /opt/jupyter /notebooks \
+ && chmod 777 -R /opt/jupyter/ /notebooks
+WORKDIR /opt/jupyter
 RUN conda install --yes \
     'notebook=5.7.*' \
     'jupyterlab=0.35.*' \
@@ -82,3 +85,10 @@ COPY start.sh /usr/local/bin/
 COPY start-notebook.sh /usr/local/bin/
 COPY jupyter_notebook_config.py /etc/jupyter/
 RUN fix-permissions /etc/jupyter/
+VOLUME /opt/jupyter
+RUN mkdir -p /etc/jupyter/lab /.local \
+ && chmod 777 -R /etc/jupyter/lab /.local
+ENV JUPYTER_CONFIG_DIR=/etc/jupyter/
+ENV JUPYTER_RUNTIME_DIR=/opt/jupyter/
+ENV JUPYTER_PATH=/opt/jupyter/
+#ENV JUPYTERLAB_DIR=/opt/jupyter/
